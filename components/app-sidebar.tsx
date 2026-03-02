@@ -1,6 +1,6 @@
 "use client"
 
-import { BarChart3, Wrench, Users, FileText, Settings, Activity, Cog, Calendar, ChevronLeft, Menu } from "lucide-react"
+import { BarChart3, Wrench, Users, FileText, Settings, Activity, Cog, Calendar, ChevronLeft } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -75,8 +75,8 @@ export function AppSidebar({ activeSection, onSectionChange, userRole, currentUs
 
   return (
     <Sidebar collapsible="icon" className="border-r bg-white">
-      <SidebarHeader className="border-b px-3 py-3">
-        <div className="flex items-center justify-between gap-2">
+      <SidebarHeader className="border-b px-4 py-4">
+        <div className="flex items-center justify-between gap-3 mb-4">
           <div className="flex items-center gap-3 min-w-0 flex-1">
             {isMounted ? (
               <img
@@ -87,21 +87,21 @@ export function AppSidebar({ activeSection, onSectionChange, userRole, currentUs
             ) : (
               <div className="w-10 h-10 bg-gray-200 animate-pulse rounded" />
             )}
-            <div className="flex flex-col group-data-[collapsible=icon]:hidden flex-1 min-w-0">
-              <span className="text-sm font-semibold text-gray-900 break-words">Hospital Dr Beningo Sánchez</span>
+            <div className="flex flex-col group-data-[collapsible=icon]:hidden min-w-0">
+              <span className="text-sm font-semibold text-gray-900 truncate">Hospital Dr Beningo Sánchez</span>
             </div>
           </div>
           <Button
             variant="ghost"
             size="icon"
             onClick={toggleSidebar}
-            className="h-9 w-9 shrink-0 flex items-center justify-center hover:bg-gray-100 rounded-md transition-colors"
+            className="h-7 w-7 shrink-0"
             title={state === 'expanded' ? 'Colapsar menú' : 'Expandir menú'}
           >
-            <Menu className="h-5 w-5 text-gray-700" />
+            <ChevronLeft className={`h-4 w-4 transition-transform ${state === 'collapsed' ? 'rotate-180' : ''}`} />
           </Button>
         </div>
-        <div className="group-data-[collapsible=icon]:hidden mt-3 pt-3 border-t">
+        <div className="group-data-[collapsible=icon]:hidden">
           <div className="text-xs text-gray-600">Rol actual:</div>
           <div className="text-sm font-semibold text-blue-600">{roleLabels[userRole]}</div>
         </div>
