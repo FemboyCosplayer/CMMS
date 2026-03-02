@@ -45,8 +45,19 @@ fi
 
 # Crear/actualizar todas las tablas automáticamente
 echo "📦 Ejecutando migraciones de Prisma..."
-npx prisma migrate deploy --accept-data-loss 2>/dev/null || \
-  npx prisma db push --accept-data-loss --skip-generate
+# Primero intenta migrate deploy (lo recomendado)
+if npx prisma migrate deploy 2>/dev/null; then
+  echo "✅ Migraciones ejecutadas con prisma migrate deploy"
+else
+  # Si falla, usa db push como fallback
+  echo "⚠️  Fallback a prisma db push..."
+  if npx prisma db push --accept-data-loss --skip-generate; then
+    echo "✅ Tablas creadas con prisma db push"
+  else
+    echo "❌ ERROR: Falló al crear las tablas"
+    exit 1
+  fi
+fi
 
 echo "✅ Migraciones completadas"
 
